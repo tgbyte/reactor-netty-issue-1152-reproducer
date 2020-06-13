@@ -30,7 +30,7 @@ public class ReproducerTest {
       public MockResponse dispatch(RecordedRequest recordedRequest) {
         var response = new MockResponse();
         response.setHeader("content-type", "application/json; charset=UTF-8");
-        response.setBody("{\"status\":\"ok\"");
+        response.setBody("{\"status\":\"ok\"}");
         return response;
       }
     });
