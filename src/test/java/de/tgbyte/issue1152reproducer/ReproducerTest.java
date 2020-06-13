@@ -1,9 +1,11 @@
 package de.tgbyte.issue1152reproducer;
 
+import java.io.IOException;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class ReproducerTest {
   private MockWebServer server;
 
   @BeforeEach
-  public void setup() {
+  public void setup() throws IOException {
     this.server = new MockWebServer();
     this.server.setDispatcher(new Dispatcher() {
 
@@ -32,6 +34,13 @@ public class ReproducerTest {
         return response;
       }
     });
+    this.server.start();
+  }
+
+  @AfterEach
+  public void tearDown() throws IOException {
+    this.server.shutdown();
+    this.server = null;
   }
 
   @Test
